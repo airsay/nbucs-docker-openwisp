@@ -131,9 +131,11 @@ services:
         aliases:
           - dashboard.internal
           - api.internal
-    ports:
-      - "${NGINX_PORT:-80}:80"
-      - "${NGINX_SSL_PORT:-443}:443"
+    #ports:
+    #  - "${NGINX_PORT:-80}:80"
+    #  - "${NGINX_SSL_PORT:-443}:443"
+    expose:
+      - "80"
     depends_on:
       - dashboard
       - api
