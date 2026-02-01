@@ -6,9 +6,9 @@ x-celery-depends-on: &celery-depends-on
       condition: service_started
     dashboard:
       condition: service_started
-    openvpn:
-      required: false
-      condition: service_healthy
+    #openvpn:
+     # required: false
+     # condition: service_healthy
 
 services:
   dashboard:
@@ -168,28 +168,28 @@ services:
     volumes:
       - openwisp_certs:/etc/ssl/mail
 
-  openvpn:
-    image: openwisp/openwisp-openvpn:latest
-    restart: on-failure
-    build:
-      context: images
-      dockerfile: openwisp_openvpn/Dockerfile
-    ports:
-      - "1194:1194/udp"
-    env_file:
+  #openvpn:
+   # image: openwisp/openwisp-openvpn:latest
+    #restart: on-failure
+    #build:
+     # context: images
+     # dockerfile: openwisp_openvpn/Dockerfile
+    #ports:
+     # - "1194:1194/udp"
+    #env_file:
       - .env
-    depends_on:
+    #depends_on:
       - postgres
-    cap_add:
+    #cap_add:
       - NET_ADMIN
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    healthcheck:
-      test: ["CMD", "pgrep", "-f", "openvpn"]
-      interval: 30s
-      timeout: 10s
-      retries: 30
-      start_period: 90s
+    #devices:
+    #  - /dev/net/tun:/dev/net/tun
+    #healthcheck:
+    #  test: ["CMD", "pgrep", "-f", "openvpn"]
+    #  interval: 30s
+    #  timeout: 10s
+    #  retries: 30
+    #  start_period: 90s
 
   postgres:
     image: postgis/postgis:15-3.4-alpine
